@@ -10,7 +10,7 @@ class Term:
 
         if decorator == "vec":
             self.name = "\\vec{" + name + "}"
-        elif decorator == "mod":
+        elif decorator == "mod" or decorator == "abs":
             self.name = "\\left|" + name + "\\right|"
         elif decorator == "brac":
             self.name = "\\left(" + name + "\\right)"
@@ -20,29 +20,42 @@ class Term:
             self.name = "\\left\\langle" + name + "\\right\\rangle"
         elif decorator == "box":
             self.name = "\\left[" + name + "\\right]"
+        elif decorator == "floor":
+            self.name = "\\lfloor" + name + "\\rfloor"
+        elif decorator == "ceil":
+            self.name = "\\lceil" + name + "\\rceil"
 
-    def latex(self):
-        return self.name
+    def latex(self, mode=None):
+        if mode is None:
+            print(self.name)
+        elif mode == "inline":
+            print("$ \t" + self.name + "\t $")
+        elif mode == "block":
+            print("$$ \t" + self.name + "\t $$")
 
     def decorate(self, decorator):
         if decorator == "vec":
             self.name = "\\vec{" + self.name + "}"
-            return Term(self.name)
-        elif decorator == "mod":
+        elif decorator == "mod" or decorator == "abs":
             self.name = "\\left|" + self.name + "\\right|"
-            return Term(self.name)
         elif decorator == "brac":
             self.name = "\\left(" + self.name + "\\right)"
-            return Term(self.name)
         elif decorator == "brace":
             self.name = "\\left\\lbrace" + self.name + "\\right\\rbrace"
-            return Term(self.name)
         elif decorator == "angle":
             self.name = "\\left\\langle" + self.name + "\\right\\rangle"
-            return Term(self.name)
         elif decorator == "box":
             self.name = "\\left[" + self.name + "\\right]"
-            return Term(self.name)
+        elif decorator == "floor":
+            self.name = "\\lfloor" + self.name + "\\rfloor"
+        elif decorator == "ceil":
+            self.name = "\\lceil" + self.name + "\\rceil"
+
+        return Term(self.name)
+
+    def enumerate(self, number: int):
+        self.name = self.name + " \\ \\dots \\ " + str(number)
+        return Term(self.name)
 
     def __add__(self, other):
         if isinstance(other, Term):
@@ -53,6 +66,9 @@ class Term:
     def __radd__(self, other):
         if is_num(other):
             return Term(str(other) + " + " + self.name)
+
+    def __neg__(self):
+        return Term(" - " + self.name)
 
     def __sub__(self, other):
         if isinstance(other, Term):
