@@ -3,8 +3,5 @@ from functions import *
 from settings import Settings
 
 
-a = Term("a")
-b = Term("b")
-
-result = (a+b) ** 2
-print(result)
+a = Term("a", "vec")
+b = Term("b", "vec")

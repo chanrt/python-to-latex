@@ -1,6 +1,6 @@
 class SettingsClass:
     def __init__(self):
-        self.mul_symbol = " * "
+        self.mul_symbol = " \\cdot "
         self.big_frac = True
         self.big_brac = True
 

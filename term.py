@@ -10,9 +10,39 @@ class Term:
 
         if decorator == "vec":
             self.name = "\\vec{" + name + "}"
+        elif decorator == "mod":
+            self.name = "\\left|" + name + "\\right|"
+        elif decorator == "brac":
+            self.name = "\\left(" + name + "\\right)"
+        elif decorator == "brace":
+            self.name = "\\left\\lbrace" + name + "\\right\\rbrace"
+        elif decorator == "angle":
+            self.name = "\\left\\langle" + name + "\\right\\rangle"
+        elif decorator == "box":
+            self.name = "\\left[" + name + "\\right]"
 
     def latex(self):
         return self.name
+
+    def decorate(self, decorator):
+        if decorator == "vec":
+            self.name = "\\vec{" + self.name + "}"
+            return Term(self.name)
+        elif decorator == "mod":
+            self.name = "\\left|" + self.name + "\\right|"
+            return Term(self.name)
+        elif decorator == "brac":
+            self.name = "\\left(" + self.name + "\\right)"
+            return Term(self.name)
+        elif decorator == "brace":
+            self.name = "\\left\\lbrace" + self.name + "\\right\\rbrace"
+            return Term(self.name)
+        elif decorator == "angle":
+            self.name = "\\left\\langle" + self.name + "\\right\\rangle"
+            return Term(self.name)
+        elif decorator == "box":
+            self.name = "\\left[" + self.name + "\\right]"
+            return Term(self.name)
 
     def __add__(self, other):
         if isinstance(other, Term):
