@@ -1,5 +1,8 @@
 from term import Term
 
+# math
+infty = Term("\\infty")
+
 
 # greek alphabet: small letters
 sym_alpha = Term("\\alpha")

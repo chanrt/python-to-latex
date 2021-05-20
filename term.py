@@ -1,5 +1,7 @@
 from settings import Settings
 from commons import *
+from strings import *
+import os
 
 
 class Term:
@@ -24,6 +26,9 @@ class Term:
             self.name = "\\lfloor" + name + "\\rfloor"
         elif decorator == "ceil":
             self.name = "\\lceil" + name + "\\rceil"
+
+    def __str__(self):
+        return self.name
 
     def latex(self, mode=None):
         if mode is None:
@@ -53,9 +58,29 @@ class Term:
 
         return Term(self.name)
 
+    def equate(self, other):
+        if is_num(other):
+            return Term(self.name + " = " + str(other))
+        elif isinstance(other, Term):
+            return Term(self.name + " = " + other.name)
+
     def enumerate(self, number: int):
         self.name = self.name + " \\ \\dots \\ " + str(number)
         return Term(self.name)
+
+    def at_constant(self, other):
+        self = self.decorate("brac")
+
+        if is_str(other):
+            return Term(self.name + "_{" + other + "}")
+        elif isinstance(other, Term):
+            return Term(self.name + "_{" + other.name + "}")
+
+    def render(self):
+        website = open("equation.html", "w")
+        website.write(head + "\n" + body + left_padding + self.name + right_padding + "\n" + footer)
+        website.close()
+        os.system("equation.html")
 
     def __add__(self, other):
         if isinstance(other, Term):
@@ -115,6 +140,3 @@ class Term:
     def __rpow__(self, other):
         if is_num(other):
             return Term(str(other) + "^{" + self.name + "}")
-
-    def __str__(self):
-        return self.name

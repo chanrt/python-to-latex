@@ -1,12 +1,12 @@
 from term import Term
 from functions import *
+from calculus import *
 from symbols import *
 from settings import Settings
 
-a = Term("a")
-b = Term("b")
+v = Term("v")
 c = Term("c")
 
-result = log((a + b) ** 2 / c, 3) - sym_alpha
-result.decorate("abs").enumerate(2).latex()
+result = sym_gamma.equate(1 / sqrt(1 - (v / c)**2))
+result.render()
 

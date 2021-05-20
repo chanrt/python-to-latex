@@ -3,6 +3,7 @@ class SettingsClass:
         self.mul_symbol = " \\cdot "
         self.big_frac = True
         self.big_brac = True
+        self.dark_mode = True
 
     def set_mul_symbol(self, symbol: str):
         self.mul_symbol = " " + symbol + " "
@@ -40,5 +41,13 @@ class SettingsClass:
         else:
             return " ) "
 
+    def set_dark_mode(self):
+        self.dark_mode = True
+
+    def set_light_mode(self):
+        self.dark_mode = False
+
+    def get_dark_mode(self):
+        return self.dark_mode
 
 Settings = SettingsClass()

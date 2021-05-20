@@ -3,6 +3,14 @@ from settings import Settings
 from commons import *
 
 
+# common functions
+def sqrt(term):
+    if isinstance(term, Term):
+        return Term("\\sqrt {" + term.name + " }")
+    elif is_num(term):
+        return Term("\\sqrt {" + str(term) + " }")
+
+
 # trigonometric functions
 def sin(term):
     if isinstance(term, Term):
